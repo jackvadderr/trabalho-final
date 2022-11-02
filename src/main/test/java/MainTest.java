@@ -9,11 +9,12 @@ import junit.framework.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class MainTest {
 
     @Test
-    public void test(){
+    public void test() throws SQLException {
         Assert.assertTrue(new ConexaoSingleton().getConnection() != null);
     }
 }

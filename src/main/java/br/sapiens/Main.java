@@ -1,6 +1,6 @@
 package br.sapiens;
 
-
+import br.sapiens.configs.ConexaoSingleton;
 import br.sapiens.configs.CriaEntidades;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import br.sapiens.configs.CriaEntidades;
 public class Main extends Application {
 
     @Override
@@ -23,8 +22,9 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) throws SQLException {
-        //minha conecao
-        CriaEntidades teste = new CriaEntidades();
+        //minha conexao
+        ConexaoSingleton conexao = new ConexaoSingleton();
+        CriaEntidades teste = new CriaEntidades(conexao.getConnection());
         launch();
     }
 
