@@ -1,19 +1,19 @@
 package br.sapiens.models;
 
 public class AlunoModel {
-    private int id;
+    private Integer id;
     private String nome;
-    private String date;
+    private String dataNascimento;
     private CursoEnum curso;
 
-    public AlunoModel(int id, String nome, String date, CursoEnum curso) {
+    public AlunoModel(Integer id, String nome, CursoEnum curso) {
         this.id = id;
         this.nome = nome;
-        this.date = date;
+        this.dataNascimento = dataNascimento;
         this.curso = curso;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -29,12 +29,12 @@ public class AlunoModel {
         this.nome = nome;
     }
 
-    public String getDate() {
-        return date;
+    public String getDataNascimento() {
+        return dataNascimento;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDataNascimento(String dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     public CursoEnum getCurso() {

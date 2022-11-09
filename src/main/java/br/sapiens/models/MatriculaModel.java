@@ -1,6 +1,7 @@
 package br.sapiens.models;
 
 public class MatriculaModel {
+    private Integer id;
     private DisciplinaModel disciplina;
     private int idDisciplina;
 
@@ -17,6 +18,10 @@ public class MatriculaModel {
         this.idAluno = idAluno;
         this.periodo = periodo;
         this.idPeriodo = idPeriodo;
+    }
+
+    public Integer getId(){
+        return id;
     }
 
     public DisciplinaModel getDisciplina() {

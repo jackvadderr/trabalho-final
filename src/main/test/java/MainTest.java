@@ -1,5 +1,6 @@
 import br.sapiens.Main;
 import br.sapiens.configs.ConexaoSingleton;
+import br.sapiens.models.Endereco;
 import com.sun.jdi.connect.spi.Connection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

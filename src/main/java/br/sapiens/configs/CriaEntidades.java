@@ -27,10 +27,18 @@ public class CriaEntidades {
                 ");\n" +
                 "\n";
         String aluno = "CREATE TABLE `Aluno` (\n" +
-                "  `id` int,\n" +
+                "  `id` int AUTO_INCREMENT,\n" +
                 "  `nome` varchar(200),\n" +
                 "  `dataNascimento` Date,\n" +
                 "  `curso` varchar(200),\n" +
+                "  PRIMARY KEY (`id`)\n" +
+                ");\n";
+
+        String endereco = "" +
+                "CREATE TABLE `endereco` (\n" +
+                "  `id` bigint auto_increment,\n" +
+                "  `descricao` varchar(200),\n" +
+                "  `logradouro` varchar(200),\n" +
                 "  PRIMARY KEY (`id`)\n" +
                 ");\n";
 
@@ -40,6 +48,7 @@ public class CriaEntidades {
         statement.execute(matricula);
         statement.execute(disciplinas);
         statement.execute(aluno);
+        statement.execute(endereco);
 
         System.out.println("Tabelas criada com sucesso");
 

@@ -1,7 +1,7 @@
 package br.sapiens.models;
 
 public class DisciplinaModel {
-    private int id;
+    private Integer id;
     private String descricao;
     private CursoEnum curso;
 
@@ -11,7 +11,7 @@ public class DisciplinaModel {
         this.curso = curso;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
