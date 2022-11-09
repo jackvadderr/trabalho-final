@@ -20,7 +20,7 @@ public class CriaEntidades {
                 "  PRIMARY KEY (`periodo`,`disciplina`, `aluno`)\n" +
                 ");\n";
         String disciplinas = "CREATE TABLE `Disciplina` (\n" +
-                "  `id` int,\n" +
+                "  `id` int AUTO_INCREMENT,\n" +
                 "  `descricao` varchar(200),\n" +
                 "  `curso` varchar(200),\n" +
                 "  PRIMARY KEY (`id`)\n" +

@@ -5,7 +5,7 @@ public class DisciplinaModel {
     private String descricao;
     private CursoEnum curso;
 
-    public DisciplinaModel(int id, String descricao, CursoEnum curso) {
+    public DisciplinaModel(Integer id, String descricao, CursoEnum curso) {
         this.id = id;
         this.descricao = descricao;
         this.curso = curso;

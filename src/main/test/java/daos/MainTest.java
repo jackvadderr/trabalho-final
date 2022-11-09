@@ -1,15 +1,9 @@
-import br.sapiens.Main;
+package daos;
+
 import br.sapiens.configs.ConexaoSingleton;
-import br.sapiens.models.Endereco;
-import com.sun.jdi.connect.spi.Connection;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import junit.framework.Assert;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 public class MainTest {

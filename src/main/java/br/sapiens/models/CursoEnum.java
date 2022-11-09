@@ -5,9 +5,9 @@ public enum CursoEnum {
     DIREITO("Direito", 4000);
 
     public final String label;
-    public final int carga;
+    public final Integer carga;
 
-    CursoEnum(String label, int carga){
+    CursoEnum(String label, Integer carga){
         this.label = label;
         this.carga = carga;
     }

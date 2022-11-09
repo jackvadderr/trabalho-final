@@ -3,13 +3,13 @@ package br.sapiens.models;
 public class MatriculaModel {
     private Integer id;
     private DisciplinaModel disciplina;
-    private int idDisciplina;
+    private Integer idDisciplina;
 
     private AlunoModel aluno;
-    private int idAluno;
+    private Integer idAluno;
 
     private PeriodoEnum periodo;
-    private int idPeriodo;
+    private Integer idPeriodo;
 
     public MatriculaModel(DisciplinaModel disciplina, int idDisciplina, AlunoModel aluno, int idAluno, PeriodoEnum periodo, int idPeriodo) {
         this.disciplina = disciplina;
@@ -24,6 +24,10 @@ public class MatriculaModel {
         return id;
     }
 
+    public void setId(Integer id){
+        this.id = id;
+    }
+
     public DisciplinaModel getDisciplina() {
         return disciplina;
     }
@@ -32,7 +36,7 @@ public class MatriculaModel {
         this.disciplina = disciplina;
     }
 
-    public int getIdDisciplina() {
+    public Integer getIdDisciplina() {
         return idDisciplina;
     }
 
@@ -48,7 +52,7 @@ public class MatriculaModel {
         this.aluno = aluno;
     }
 
-    public int getIdAluno() {
+    public Integer getIdAluno() {
         return idAluno;
     }
 
@@ -64,7 +68,7 @@ public class MatriculaModel {
         this.periodo = periodo;
     }
 
-    public int getIdPeriodo() {
+    public Integer getIdPeriodo() {
         return idPeriodo;
     }
 

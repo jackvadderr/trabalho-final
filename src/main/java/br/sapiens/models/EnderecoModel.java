@@ -1,6 +1,6 @@
 package br.sapiens.models;
 
-public class Endereco {
+public class EnderecoModel {
 
 
     private String descricao;
@@ -8,7 +8,7 @@ public class Endereco {
 
     private Integer id;
 
-    public Endereco(Integer id, String descricao, LogradouroEnum logradouro) {
+    public EnderecoModel(Integer id, String descricao, LogradouroEnum logradouro) {
         this.id = id;
         this.descricao = descricao;
         this.logradouro = logradouro;

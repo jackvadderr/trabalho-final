@@ -58,7 +58,10 @@ public class AlunoDao implements CrudRepository<AlunoModel, Integer>{
         List<AlunoModel> resultado = new ArrayList();
         try (ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                resultado.add(new AlunoModel(rs.getInt(1),rs.getString(2), CursoEnum.valueOf(rs.getString(3))));
+                // AlunoModel(Integer id, String nome, String dataNascimento, CursoEnum curso)
+                resultado.add(new AlunoModel(rs.getInt(1),rs.getString(2), rs.getString(3), CursoEnum.valueOf(rs.getString(4))));
+                //resultado.add(new AlunoModel(rs.getInt(1),rs.getString(2), CursoEnum.valueOf(rs.getString(3))));
+
             }
         }
         return resultado;

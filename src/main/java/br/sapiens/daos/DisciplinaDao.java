@@ -3,8 +3,7 @@ package br.sapiens.daos;
 import br.sapiens.configs.ConexaoSingleton;
 import br.sapiens.models.CursoEnum;
 import br.sapiens.models.DisciplinaModel;
-import br.sapiens.models.Endereco;
-import br.sapiens.models.LogradouroEnum;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Iterator;

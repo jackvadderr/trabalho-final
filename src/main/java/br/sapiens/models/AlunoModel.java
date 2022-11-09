@@ -6,7 +6,7 @@ public class AlunoModel {
     private String dataNascimento;
     private CursoEnum curso;
 
-    public AlunoModel(Integer id, String nome, CursoEnum curso) {
+    public AlunoModel(Integer id, String nome, String dataNascimento,CursoEnum curso) {
         this.id = id;
         this.nome = nome;
         this.dataNascimento = dataNascimento;
