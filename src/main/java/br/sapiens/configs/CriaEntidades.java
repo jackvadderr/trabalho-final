@@ -12,12 +12,20 @@ public class CriaEntidades {
     public CursoEnum curso;
 
     public CriaEntidades(Connection con) throws SQLException {
+//        String matricula = "" +
+//                "CREATE TABLE `Matricula` (\n" +
+//                "  `disciplina` int,\n" +
+//                "  `aluno` int,\n" +
+//                "  `periodo` varchar(200),\n" +
+//                "  PRIMARY KEY (`periodo`,`disciplina`, `aluno`)\n" +
+//                ");\n";
         String matricula = "" +
                 "CREATE TABLE `Matricula` (\n" +
-                "  `disciplina` int,\n" +
-                "  `aluno` int,\n" +
-                "  `periodo` varchar(200),\n" +
-                "  PRIMARY KEY (`periodo`,`disciplina`, `aluno`)\n" +
+                "  id varchar ,\n" +
+                "  disciplina int,\n" +
+                "  aluno int,\n" +
+                "  periodo varchar(200),\n" +
+                "  PRIMARY KEY(id)\n" +
                 ");\n";
         String disciplinas = "CREATE TABLE `Disciplina` (\n" +
                 "  `id` int AUTO_INCREMENT,\n" +

@@ -11,6 +11,11 @@ public class DisciplinaModel {
         this.curso = curso;
     }
 
+    public DisciplinaModel(String descricao, CursoEnum curso) {
+        this.descricao = descricao;
+        this.curso = curso;
+    }
+
     public Integer getId() {
         return id;
     }

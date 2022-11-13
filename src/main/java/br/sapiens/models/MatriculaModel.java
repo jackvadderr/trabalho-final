@@ -1,31 +1,28 @@
 package br.sapiens.models;
 
 public class MatriculaModel {
-    private Integer id;
     private DisciplinaModel disciplina;
-    private Integer idDisciplina;
+    //private Integer idDisciplina;
 
     private AlunoModel aluno;
-    private Integer idAluno;
+    //private Integer idAluno;
 
     private PeriodoEnum periodo;
-    private Integer idPeriodo;
+    //private Integer idPeriodo;
+    private String id;
 
-    public MatriculaModel(DisciplinaModel disciplina, int idDisciplina, AlunoModel aluno, int idAluno, PeriodoEnum periodo, int idPeriodo) {
+    public MatriculaModel(DisciplinaModel disciplina, AlunoModel aluno, PeriodoEnum periodo) {
         this.disciplina = disciplina;
-        this.idDisciplina = idDisciplina;
         this.aluno = aluno;
-        this.idAluno = idAluno;
         this.periodo = periodo;
-        this.idPeriodo = idPeriodo;
     }
 
-    public Integer getId(){
-        return id;
+    public String getId(){
+        return aluno.getId()+"-"+disciplina.getId()+"-"+periodo;
     }
 
     public void setId(Integer id){
-        this.id = id;
+
     }
 
     public DisciplinaModel getDisciplina() {
@@ -36,14 +33,6 @@ public class MatriculaModel {
         this.disciplina = disciplina;
     }
 
-    public Integer getIdDisciplina() {
-        return idDisciplina;
-    }
-
-    public void setIdDisciplina(int idDisciplina) {
-        this.idDisciplina = idDisciplina;
-    }
-
     public AlunoModel getAluno() {
         return aluno;
     }
@@ -52,27 +41,11 @@ public class MatriculaModel {
         this.aluno = aluno;
     }
 
-    public Integer getIdAluno() {
-        return idAluno;
-    }
-
-    public void setIdAluno(int idAluno) {
-        this.idAluno = idAluno;
-    }
-
     public PeriodoEnum getPeriodo() {
         return periodo;
     }
 
-    public void setPeriodo(PeriodoEnum periodo) {
+    public void setPeriodo() {
         this.periodo = periodo;
-    }
-
-    public Integer getIdPeriodo() {
-        return idPeriodo;
-    }
-
-    public void setIdPeriodo(int idPeriodo) {
-        this.idPeriodo = idPeriodo;
     }
 }

@@ -62,14 +62,10 @@ public class AlunoDao implements CrudRepository<AlunoModel, Integer>{
                 resultado.add(new AlunoModel(rs.getInt(1),rs.getString(2), rs.getString(3), CursoEnum.valueOf(rs.getString(4))));
                 //resultado.add(new AlunoModel(rs.getInt(1),rs.getString(2), CursoEnum.valueOf(rs.getString(3))));
 
+
             }
         }
         return resultado;
-    }
-
-    @Override
-    public void delete(AlunoModel entity) {
-
     }
 
     private <S extends AlunoModel> S update(S entity) throws SQLException {
@@ -100,13 +96,40 @@ public class AlunoDao implements CrudRepository<AlunoModel, Integer>{
     }
 
     @Override
-    public void deleteById(Integer integer) {
-
+    public void delete(AlunoModel entity) throws SQLException {
+        if (entity.getId() != null){
+            deleteById(entity.getId());
+        }
     }
 
     @Override
-    public void deleteAll(Iterable<? extends AlunoModel> entities) {
+    public void deleteById(Integer id) throws SQLException {
+        String sql = "DELETE FROM aluno WHERE id = ?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, id.toString());
+        pstmt.executeUpdate();
+    }
 
+    @Override
+    public void deleteAll(Iterable<? extends AlunoModel> entities) throws SQLException {
+        List<Integer> lista = new ArrayList();
+        Iterator<AlunoModel> interetor = (Iterator<AlunoModel>) entities.iterator();
+        while(interetor.hasNext()){
+            lista.add(interetor.next().getId());
+        }
+        String sqlIN = lista.stream()
+                .map(x -> String.valueOf(x))
+                .collect(Collectors.joining(",", "(", ")"));
+        //String sql = "select * from aluno where id in(?)".replace("(?)", sqlIN);
+        String sql = "DELETE FROM aluno WHERE id in(?)".replace("(?)", sqlIN);
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        List<AlunoModel> resultado = new ArrayList();
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                // AlunoModel(Integer id, String nome, String dataNascimento, CursoEnum curso)
+                resultado.add(new AlunoModel(rs.getInt(1),rs.getString(2), rs.getString(3), CursoEnum.valueOf(rs.getString(4))));
+            }
+        }
     }
 
 }

@@ -5,6 +5,8 @@ import br.sapiens.configs.CriaEntidades;
 import br.sapiens.daos.AlunoDao;
 import br.sapiens.models.AlunoModel;
 import br.sapiens.models.CursoEnum;
+import br.sapiens.models.EnderecoModel;
+import br.sapiens.models.LogradouroEnum;
 import junit.framework.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -68,16 +70,42 @@ public class AlunoDaoTest {
 
     @Test
     public void delete() throws SQLException {
-
+        AlunoModel aluno = new AlunoModel(null,"Jack", "2022-11-12",CursoEnum.DIREITO);
+        AlunoModel alunoSalvo = alunoDao.save(aluno);
+        Assert.assertTrue(alunoSalvo.getId() != null);
+        Integer id = alunoSalvo.getId(); // Salvando o id antes de apagar
+        alunoDao.delete(alunoSalvo); // Apagando aluno
+        AlunoModel alunoBanco = alunoDao.findById(id).get(); // Procurando o id
+        Assert.assertTrue(aluno != alunoBanco);
+        Assert.assertFalse( alunoBanco.getId() == id); // Verificando se o id apagado ainda existe
     }
 
     @Test
     public void deleteById() throws SQLException {
+        AlunoModel aluno1 =new AlunoModel(null,"Descrição", "2022-12-25", CursoEnum.DIREITO);
+        AlunoModel alunoSalvo = alunoDao.save(aluno1); // Salva a linha
+        Assert.assertTrue(alunoSalvo.getId() != null); // Verifica se o id não é null
+        Integer id = alunoSalvo.getId(); // Salvando o id antes de apagar
 
+        alunoDao.deleteById(id); // Apagando a disciplina
+        AlunoModel alunoBanco = alunoDao.findById(id).get(); // Procurando o id
+        Assert.assertTrue(aluno1 != alunoBanco);
+        Assert.assertFalse( alunoBanco.getId() == id); // Verificando se o id apagado ainda existe
     }
 
     @Test
     public void deleteAll() throws SQLException {
+        AlunoModel aluno1 = new AlunoModel(null,"Jack", "2022-11-09", CursoEnum.DIREITO);
+        AlunoModel aluno2 = new AlunoModel(null,"Batata", "2022-11-10", CursoEnum.SISTEMA);
+        Iterable<AlunoModel> alunoSalvo = alunoDao.saveAll(List.of(aluno1, aluno2));
+
+        alunoSalvo.forEach(it -> Assert.assertTrue(it.getId() != null));
+
+        alunoDao.deleteAll(alunoSalvo);
+
+
+
+
 
     }
 }

@@ -1,5 +1,7 @@
 package br.sapiens.models;
 
+import java.util.Date;
+
 public class AlunoModel {
     private Integer id;
     private String nome;
@@ -8,6 +10,12 @@ public class AlunoModel {
 
     public AlunoModel(Integer id, String nome, String dataNascimento,CursoEnum curso) {
         this.id = id;
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.curso = curso;
+    }
+
+    public AlunoModel(String nome, String dataNascimento,CursoEnum curso) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.curso = curso;

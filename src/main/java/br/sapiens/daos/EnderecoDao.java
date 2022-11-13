@@ -1,8 +1,7 @@
 package br.sapiens.daos;
 
 import br.sapiens.configs.ConexaoSingleton;
-import br.sapiens.models.EnderecoModel;
-import br.sapiens.models.LogradouroEnum;
+import br.sapiens.models.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -101,7 +100,7 @@ public class EnderecoDao implements CrudRepository<EnderecoModel,Integer> {
 
     @Override
     public void deleteById(Integer id) throws SQLException {
-        String sql = "DELETE FROM endereco WHERE id = ?";
+        String sql = "DELETE FROM disciplina WHERE id = ?";
 
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, id.toString());
@@ -110,9 +109,24 @@ public class EnderecoDao implements CrudRepository<EnderecoModel,Integer> {
 
     @Override
     public void deleteAll(Iterable<? extends EnderecoModel> entities) throws SQLException {
-        String sql = "DELETE FROM endereco";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.execute();
+        List<Integer> lista = new ArrayList();
+        Iterator<EnderecoModel> interetor = (Iterator<EnderecoModel>) entities.iterator();
+        while(interetor.hasNext()){
+            lista.add(interetor.next().getId());
+        }
+        String sqlIN = lista.stream()
+                .map(x -> String.valueOf(x))
+                .collect(Collectors.joining(",", "(", ")"));
+        //String sql = "select * from aluno where id in(?)".replace("(?)", sqlIN);
+        String sql = "DELETE FROM endereco WHERE id in(?)".replace("(?)", sqlIN);
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        List<EnderecoModel> resultado = new ArrayList();
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                // AlunoModel(Integer id, String nome, String dataNascimento, CursoEnum curso)
+                resultado.add(new EnderecoModel(rs.getInt(1),rs.getString(2), LogradouroEnum.valueOf(rs.getString(4))));
+            }
+        }
     }
 
 

@@ -1,6 +1,7 @@
 package br.sapiens.daos;
 
 import br.sapiens.configs.ConexaoSingleton;
+import br.sapiens.models.AlunoModel;
 import br.sapiens.models.CursoEnum;
 import br.sapiens.models.DisciplinaModel;
 
@@ -91,18 +92,40 @@ public class DisciplinaDao implements CrudRepository<DisciplinaModel,Integer>{
     }
 
     @Override
-    public void delete(DisciplinaModel entity) {
-
+    public void delete(DisciplinaModel entity) throws SQLException {
+        if (entity.getId() != null){
+            deleteById(entity.getId());
+        }
     }
 
     @Override
-    public void deleteById(Integer integer) {
-
+    public void deleteById(Integer id) throws SQLException {
+        String sql = "DELETE FROM endereco WHERE id = ?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, id.toString());
+        pstmt.executeUpdate();
     }
 
     @Override
-    public void deleteAll(Iterable<? extends DisciplinaModel> entities) {
-
+    public void deleteAll(Iterable<? extends DisciplinaModel> entities) throws SQLException {
+        List<Integer> lista = new ArrayList();
+        Iterator<DisciplinaModel> interetor = (Iterator<DisciplinaModel>) entities.iterator();
+        while(interetor.hasNext()){
+            lista.add(interetor.next().getId());
+        }
+        String sqlIN = lista.stream()
+                .map(x -> String.valueOf(x))
+                .collect(Collectors.joining(",", "(", ")"));
+        //String sql = "select * from aluno where id in(?)".replace("(?)", sqlIN);
+        String sql = "DELETE FROM aluno WHERE id in(?)".replace("(?)", sqlIN);
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        List<DisciplinaModel> resultado = new ArrayList();
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                // AlunoModel(Integer id, String nome, String dataNascimento, CursoEnum curso)
+                resultado.add(new DisciplinaModel(rs.getInt(1),rs.getString(2), CursoEnum.valueOf(rs.getString(4))));
+            }
+        }
     }
 
 

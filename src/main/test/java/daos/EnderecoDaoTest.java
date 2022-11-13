@@ -12,12 +12,12 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 import java.util.List;
 
-public class EnderecoModelDaoTest {
+public class EnderecoDaoTest {
 
 
     EnderecoDao enderecoDao = new EnderecoDao();
 
-    public EnderecoModelDaoTest() throws SQLException {
+    public EnderecoDaoTest() throws SQLException {
 
     }
 
@@ -74,13 +74,13 @@ public class EnderecoModelDaoTest {
 
     @Test
     public void deleteById() throws SQLException {
-        EnderecoModel enderecoModel = new EnderecoModel(null,"Descrição", LogradouroEnum.Rua);
-        EnderecoModel enderecoModelSalvo = enderecoDao.save(enderecoModel);
+        EnderecoModel endereco1 = new EnderecoModel(null,"Descrição", LogradouroEnum.Rua);
+        EnderecoModel enderecoModelSalvo = enderecoDao.save(endereco1);
         Assert.assertTrue(enderecoModelSalvo.getId() != null);
         Integer id = enderecoModelSalvo.getId(); // Salvando o id
         enderecoDao.deleteById(enderecoModelSalvo.getId()); // Apagando a disciplina
         EnderecoModel enderecoModelBanco = enderecoDao.findById(id).get();
-        Assert.assertTrue(enderecoModel != enderecoModelBanco);
+        Assert.assertTrue(endereco1 != enderecoModelBanco);
         Assert.assertFalse( enderecoModelBanco.getId() == id);
 
     }
