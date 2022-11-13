@@ -57,7 +57,7 @@ public class DisciplinaDaoTest {
 
     @Test
     public void update() throws SQLException {
-        DisciplinaModel disciplina1 = new DisciplinaModel(null,"Lógica", CursoEnum.SISTEMA);
+        DisciplinaModel disciplina1 = new DisciplinaModel("Lógica", CursoEnum.SISTEMA);
         DisciplinaModel disciplinaSalvo = disciplinaDao.save(disciplina1);
         Integer id = disciplinaSalvo.getId();
         disciplinaSalvo.setDescricao("Programação");

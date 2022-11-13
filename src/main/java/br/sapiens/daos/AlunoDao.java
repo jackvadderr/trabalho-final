@@ -120,14 +120,14 @@ public class AlunoDao implements CrudRepository<AlunoModel, Integer>{
         String sqlIN = lista.stream()
                 .map(x -> String.valueOf(x))
                 .collect(Collectors.joining(",", "(", ")"));
-        //String sql = "select * from aluno where id in(?)".replace("(?)", sqlIN);
         String sql = "DELETE FROM aluno WHERE id in(?)".replace("(?)", sqlIN);
         PreparedStatement stmt = conn.prepareStatement(sql);
         List<AlunoModel> resultado = new ArrayList();
         try (ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 // AlunoModel(Integer id, String nome, String dataNascimento, CursoEnum curso)
-                resultado.add(new AlunoModel(rs.getInt(1),rs.getString(2), rs.getString(3), CursoEnum.valueOf(rs.getString(4))));
+                //resultado.add(new AlunoModel(rs.getInt(1),rs.getString(2), rs.getString(3), CursoEnum.valueOf(rs.getString(4))));
+                resultado.add(new AlunoModel(rs.getString(2), rs.getString(3), CursoEnum.valueOf(rs.getString(4))));
             }
         }
     }

@@ -61,7 +61,6 @@ public class MatriculaDao implements CrudRepository<MatriculaModel,Integer>{
         try (ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 resultado.add(new MatriculaModel((DisciplinaModel) rs.getObject(2), (AlunoModel) rs.getObject(3),PeriodoEnum.valueOf(rs.getString(1))));
-
             }
         }
         return resultado;

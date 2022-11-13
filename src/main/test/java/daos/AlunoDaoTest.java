@@ -95,17 +95,12 @@ public class AlunoDaoTest {
 
     @Test
     public void deleteAll() throws SQLException {
-        AlunoModel aluno1 = new AlunoModel(null,"Jack", "2022-11-09", CursoEnum.DIREITO);
-        AlunoModel aluno2 = new AlunoModel(null,"Batata", "2022-11-10", CursoEnum.SISTEMA);
+        AlunoModel aluno1 = new AlunoModel("Jack", "2022-11-09", CursoEnum.DIREITO);
+        AlunoModel aluno2 = new AlunoModel("Batata", "2022-11-10", CursoEnum.SISTEMA);
         Iterable<AlunoModel> alunoSalvo = alunoDao.saveAll(List.of(aluno1, aluno2));
 
         alunoSalvo.forEach(it -> Assert.assertTrue(it.getId() != null));
 
         alunoDao.deleteAll(alunoSalvo);
-
-
-
-
-
     }
 }
