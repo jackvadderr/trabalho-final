@@ -1,4 +1,4 @@
-package java.daos;
+package daos;
 
 import br.sapiens.configs.ConexaoSingleton;
 import br.sapiens.configs.CriaEntidades;
