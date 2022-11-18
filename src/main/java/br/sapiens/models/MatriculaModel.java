@@ -9,7 +9,7 @@ public class MatriculaModel {
 
     private PeriodoEnum periodo;
     //private Integer idPeriodo;
-    private String id;
+    //private String id;
 
     public MatriculaModel(DisciplinaModel disciplina, AlunoModel aluno, PeriodoEnum periodo) {
         this.disciplina = disciplina;

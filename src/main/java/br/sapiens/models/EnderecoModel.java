@@ -14,6 +14,11 @@ public class EnderecoModel {
         this.logradouro = logradouro;
     }
 
+    public EnderecoModel(String descricao, LogradouroEnum logradouro) {
+        this.descricao = descricao;
+        this.logradouro = logradouro;
+    }
+
     public Integer getId() {
         return id;
     }
