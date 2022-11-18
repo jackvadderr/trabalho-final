@@ -37,6 +37,19 @@ public class DisciplinaDao implements CrudRepository<DisciplinaModel,Integer>{
         return lista;
     }
 
+    public Iterator<DisciplinaModel> findAll() throws SQLException{
+        String sql = "select * from disciplina";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        List<DisciplinaModel> resultado = new ArrayList();
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                resultado.add(new DisciplinaModel(rs.getInt(1),rs.getString(2), CursoEnum.valueOf(rs.getString(3))));
+            }
+        }
+        Iterator<DisciplinaModel> interetorResult = resultado.iterator();
+        return interetorResult;
+    }
+
     @Override
     public Optional<DisciplinaModel> findById(Integer id) throws SQLException {
         List<DisciplinaModel> resultados = (List<DisciplinaModel>) findAllById(List.of(id));
@@ -126,6 +139,7 @@ public class DisciplinaDao implements CrudRepository<DisciplinaModel,Integer>{
                 resultado.add(new DisciplinaModel(rs.getInt(1),rs.getString(2), CursoEnum.valueOf(rs.getString(4))));
             }
         }
+        //return null;
     }
 
 

@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 public class AlunoDao implements CrudRepository<AlunoModel, Integer>{
 
     private final Connection conn;
+    private final String tabela =  "aluno";
 
     public AlunoDao() throws SQLException {
         this.conn = new ConexaoSingleton().getConnection();
@@ -33,6 +34,19 @@ public class AlunoDao implements CrudRepository<AlunoModel, Integer>{
             lista.add(save(entity));
         }
         return lista;
+    }
+
+    public Iterator<AlunoModel> findAll() throws SQLException{
+        String sql = "select * from aluno";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        List<AlunoModel> resultado = new ArrayList();
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                resultado.add(new AlunoModel(rs.getInt(1),rs.getString(2), rs.getString(3), CursoEnum.valueOf(rs.getString(4))));
+            }
+        }
+        Iterator<AlunoModel> interetorResult = resultado.iterator();
+        return interetorResult;
     }
 
     @Override
@@ -58,11 +72,7 @@ public class AlunoDao implements CrudRepository<AlunoModel, Integer>{
         List<AlunoModel> resultado = new ArrayList();
         try (ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                // AlunoModel(Integer id, String nome, String dataNascimento, CursoEnum curso)
                 resultado.add(new AlunoModel(rs.getInt(1),rs.getString(2), rs.getString(3), CursoEnum.valueOf(rs.getString(4))));
-                //resultado.add(new AlunoModel(rs.getInt(1),rs.getString(2), CursoEnum.valueOf(rs.getString(3))));
-
-
             }
         }
         return resultado;
@@ -112,7 +122,7 @@ public class AlunoDao implements CrudRepository<AlunoModel, Integer>{
 
     @Override
     public void deleteAll(Iterable<? extends AlunoModel> entities) throws SQLException {
-        List<Integer> lista = new ArrayList();
+        List<Integer> lista = new ArrayList<>();
         Iterator<AlunoModel> interetor = (Iterator<AlunoModel>) entities.iterator();
         while(interetor.hasNext()){
             lista.add(interetor.next().getId());
@@ -122,14 +132,7 @@ public class AlunoDao implements CrudRepository<AlunoModel, Integer>{
                 .collect(Collectors.joining(",", "(", ")"));
         String sql = "DELETE FROM aluno WHERE id in(?)".replace("(?)", sqlIN);
         PreparedStatement stmt = conn.prepareStatement(sql);
-        List<AlunoModel> resultado = new ArrayList();
-        try (ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                // AlunoModel(Integer id, String nome, String dataNascimento, CursoEnum curso)
-                //resultado.add(new AlunoModel(rs.getInt(1),rs.getString(2), rs.getString(3), CursoEnum.valueOf(rs.getString(4))));
-                resultado.add(new AlunoModel(rs.getString(2), rs.getString(3), CursoEnum.valueOf(rs.getString(4))));
-            }
-        }
+        stmt.executeUpdate();
     }
 
 }

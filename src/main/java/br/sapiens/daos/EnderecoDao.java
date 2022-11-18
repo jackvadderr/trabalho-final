@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class EnderecoDao implements CrudRepository<EnderecoModel,Integer> {
 
     private final Connection conn;
+    private final String tabela =  "endereco"; // TODO: trocar todas os sql
 
     public EnderecoDao() throws SQLException {
         this.conn = new ConexaoSingleton().getConnection();
@@ -41,6 +42,7 @@ public class EnderecoDao implements CrudRepository<EnderecoModel,Integer> {
         String sql = "Insert into endereco(descricao, logradouro) values(?, ?)";
         PreparedStatement pstmt = conn.prepareStatement(sql,
                 Statement.RETURN_GENERATED_KEYS);
+        //pstmt.setString(1, this.tabela);
         pstmt.setString(1,entity.getDescricao());
         pstmt.setString(2,entity.getLogradouro().toString());
         int affectedRows = pstmt.executeUpdate();
@@ -59,6 +61,19 @@ public class EnderecoDao implements CrudRepository<EnderecoModel,Integer> {
             lista.add(save(entity));
         }
         return lista;
+    }
+
+    public Iterator<EnderecoModel> findAll() throws SQLException{
+        String sql = "select * from aluno";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        List<EnderecoModel> resultado = new ArrayList();
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                resultado.add(new EnderecoModel(rs.getInt(1),rs.getString(2), LogradouroEnum.valueOf(rs.getString(3))));
+            }
+        }
+        Iterator<EnderecoModel> interetorResult = resultado.iterator();
+        return interetorResult;
     }
 
     @Override
@@ -100,8 +115,7 @@ public class EnderecoDao implements CrudRepository<EnderecoModel,Integer> {
 
     @Override
     public void deleteById(Integer id) throws SQLException {
-        String sql = "DELETE FROM disciplina WHERE id = ?";
-
+        String sql = "DELETE FROM endereco WHERE id = ?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, id.toString());
         pstmt.executeUpdate();
@@ -120,13 +134,7 @@ public class EnderecoDao implements CrudRepository<EnderecoModel,Integer> {
         //String sql = "select * from aluno where id in(?)".replace("(?)", sqlIN);
         String sql = "DELETE FROM endereco WHERE id in(?)".replace("(?)", sqlIN);
         PreparedStatement stmt = conn.prepareStatement(sql);
-        List<EnderecoModel> resultado = new ArrayList();
-        try (ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                // AlunoModel(Integer id, String nome, String dataNascimento, CursoEnum curso)
-                resultado.add(new EnderecoModel(rs.getInt(1),rs.getString(2), LogradouroEnum.valueOf(rs.getString(4))));
-            }
-        }
+        stmt.executeUpdate();
     }
 
 
