@@ -113,7 +113,7 @@ public class DisciplinaDao implements CrudRepository<DisciplinaModel,Integer>{
 
     @Override
     public void deleteById(Integer id) throws SQLException {
-        String sql = "DELETE FROM endereco WHERE id = ?";
+        String sql = "DELETE FROM disciplina WHERE id = ?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, id.toString());
         pstmt.executeUpdate();
@@ -121,7 +121,7 @@ public class DisciplinaDao implements CrudRepository<DisciplinaModel,Integer>{
 
     @Override
     public void deleteAll(Iterable<? extends DisciplinaModel> entities) throws SQLException {
-        List<Integer> lista = new ArrayList();
+        List<Integer> lista = new ArrayList<>();
         Iterator<DisciplinaModel> interetor = (Iterator<DisciplinaModel>) entities.iterator();
         while(interetor.hasNext()){
             lista.add(interetor.next().getId());
@@ -129,18 +129,9 @@ public class DisciplinaDao implements CrudRepository<DisciplinaModel,Integer>{
         String sqlIN = lista.stream()
                 .map(x -> String.valueOf(x))
                 .collect(Collectors.joining(",", "(", ")"));
-        //String sql = "select * from aluno where id in(?)".replace("(?)", sqlIN);
-        String sql = "DELETE FROM aluno WHERE id in(?)".replace("(?)", sqlIN);
+        String sql = "DELETE FROM disciplina WHERE id in(?)".replace("(?)", sqlIN);
         PreparedStatement stmt = conn.prepareStatement(sql);
-        List<DisciplinaModel> resultado = new ArrayList();
-        try (ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                // AlunoModel(Integer id, String nome, String dataNascimento, CursoEnum curso)
-                resultado.add(new DisciplinaModel(rs.getInt(1),rs.getString(2), CursoEnum.valueOf(rs.getString(4))));
-            }
-        }
-        //return null;
+        stmt.executeUpdate();
     }
-
-
 }
+
