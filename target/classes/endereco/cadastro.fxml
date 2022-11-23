@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<FlowPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.sapiens.controllers.EnderecoController">
+   <children>
+      <VBox spacing="15.0">
+         <children>
+            <HBox fillHeight="false" spacing="15.0">
+               <children>
+                  <Label fx:id="id" />
+               </children>
+            </HBox>
+            <HBox fillHeight="false" spacing="15.0">
+               <children>
+                  <Label text="Descricao" />
+                  <TextField fx:id="descricao" />
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </HBox>
+            <HBox spacing="15.0">
+               <children>
+                  <Label text="Logradouro" />
+                  <ChoiceBox fx:id="logradouro" prefWidth="150.0" >
+
+                  </ChoiceBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </HBox>
+            <Button onAction="#salvar">Salvar</Button>
+         </children>
+      </VBox>
+   </children>
+</FlowPane>

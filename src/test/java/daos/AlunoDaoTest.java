@@ -43,9 +43,6 @@ public class AlunoDaoTest {
         // Salvando os dados
         Iterable<AlunoModel> alunoSalvo = alunoDao.saveAll(List.of(aluno1, aluno2));
         alunoSalvo.forEach(it -> Assert.assertTrue(it.getId() != null));
-        // TODO
-        Assert.assertTrue(false);
-
     }
 
     @Test

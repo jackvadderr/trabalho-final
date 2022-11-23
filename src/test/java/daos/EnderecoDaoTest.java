@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EnderecoDaoTest {
 
-
     EnderecoDao enderecoDao = new EnderecoDao();
 
     public EnderecoDaoTest() throws SQLException {
