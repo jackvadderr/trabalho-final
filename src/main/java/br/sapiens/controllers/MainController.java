@@ -20,6 +20,39 @@ public class MainController {
                 new FXMLLoader(Main.class.getResource("/endereco/cadastro.fxml"));
         pane.setCenter(fxmlLoader.load());
     }
+
+    public void listaEndereco() throws IOException {
+        FXMLLoader fxmlLoader =
+                new FXMLLoader(Main.class.getResource("/endereco/listaEndereco.fxml"));
+        pane.setCenter(fxmlLoader.load());
+    }
+
+    public void cadastrarAluno() throws IOException {
+        System.out.println("funcionou");
+        FXMLLoader fxmlLoader =
+                new FXMLLoader(Main.class.getResource("/aluno/cadastro.fxml"));
+        pane.setCenter(fxmlLoader.load());
+    }
+
+    public void listaAluno() throws IOException {
+        FXMLLoader fxmlLoader =
+                new FXMLLoader(Main.class.getResource("/aluno/listaAluno.fxml"));
+        pane.setCenter(fxmlLoader.load());
+    }
+
+    public void cadastrarDisciplina() throws IOException {
+        System.out.println("funcionou");
+        FXMLLoader fxmlLoader =
+                new FXMLLoader(Main.class.getResource("/disciplina/cadastro.fxml"));
+        pane.setCenter(fxmlLoader.load());
+    }
+
+    public void listaDisciplina() throws IOException {
+        FXMLLoader fxmlLoader =
+                new FXMLLoader(Main.class.getResource("/disciplina/listaDisciplina.fxml"));
+        pane.setCenter(fxmlLoader.load());
+    }
+
     public void initialize() throws IOException {
         var label = new Label("Sapiens");
     }

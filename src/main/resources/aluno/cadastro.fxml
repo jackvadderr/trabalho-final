@@ -6,10 +6,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<FlowPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.sapiens.controllers.EnderecoController">
+<FlowPane prefHeight="278.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.sapiens.controllers.EnderecoController">
    <children>
-      <VBox spacing="15.0">
+      <VBox prefHeight="190.0" prefWidth="287.0" spacing="15.0">
          <children>
             <HBox fillHeight="false" spacing="15.0">
                <children>
@@ -18,7 +17,16 @@
             </HBox>
             <HBox fillHeight="false" spacing="15.0">
                <children>
-                  <Label text="Descricao" />
+                  <Label text="Nome" />
+                  <TextField fx:id="descricao1" />
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </HBox>
+            <HBox fillHeight="false" spacing="15.0">
+               <children>
+                  <Label text="Dasta de nascimento" />
                   <TextField fx:id="descricao" />
                </children>
                <cursor>
@@ -27,8 +35,8 @@
             </HBox>
             <HBox spacing="15.0">
                <children>
-                  <Label text="Logradouro" />
-                  <ChoiceBox fx:id="logradouro" prefWidth="150.0" >
+                  <Label text="Curso" />
+                  <ChoiceBox fx:id="logradouro" prefWidth="150.0">
 
                   </ChoiceBox>
                </children>

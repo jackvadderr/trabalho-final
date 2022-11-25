@@ -142,36 +142,16 @@ public class MatriculaDao implements CrudRepository<MatriculaModel, String>{
 
     @Override
     public void deleteAll(Iterable<? extends MatriculaModel> entities) throws SQLException {
-        ArrayList lista = new ArrayList();
+        ArrayList<MatriculaModel> lista = new ArrayList();
         Iterator<MatriculaModel> interetor = (Iterator<MatriculaModel>) entities.iterator();
         while (interetor.hasNext()) {
             lista.add(interetor.next());
         }
         String sqlIN = (String) lista.stream()
-                .map(x -> String.valueOf(x))
+                .map(x -> x.getId().toString())
                 .collect(Collectors.joining(",", "('", "')"));
-        String sql = "delete from Matricula where id in(?)".replace("(?)", sqlIN);
+        String sql = "delete from Matricula where id in(?)".replace("(?)",sqlIN);
         PreparedStatement stmt = conn.prepareStatement(sql);
-        //List<MatriculaModel> resultado = new ArrayList();
-        //try (ResultSet rs = stmt.executeQuery()) {
-            //while (rs.next()) {
-
-                //Fazendo split para recuperar os ids os ids
-                //String alunoId = rs.getString(1).split("-")[0];
-                //String disciplinaId = rs.getString(1).split("-")[1];
-                //PeriodoEnum periodo = PeriodoEnum.valueOf(rs.getString(1).split("-")[2]);
-
-                //Agora use o alunoDao e disciplinaDao para fazer findById e conseguir os objetos
-//                AlunoDao alunoDao = new AlunoDao();
-//                AlunoModel alunoBanco = alunoDao.findById(Integer.parseInt(alunoId)).get();
-//
-//                DisciplinaDao disciplinaDao = new DisciplinaDao();
-//                DisciplinaModel disciplinaBanco = disciplinaDao.findById(Integer.parseInt(disciplinaId)).get();
-//
-//                resultado.add(new MatriculaModel(disciplinaBanco, alunoBanco, periodo));
-//            }
-//        }
-        System.out.print(stmt);
         stmt.executeUpdate();
     }
 }

@@ -8,4 +8,6 @@ module br.sapiens {
 
     opens br.sapiens.controllers to javafx.fxml;
     exports br.sapiens.controllers;
+
+    opens br.sapiens.models to javafx.base;
 }

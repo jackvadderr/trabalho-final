@@ -223,6 +223,8 @@ public class MatriculaDaoTest {
         System.out.println(matriculaIds);
 
         matriculaDao.deleteAll(matriculaSalva);
-        //assertThrows(SQLException.class, () -> matriculaDao.findAllById(matriculaIds));
+        for(String id: matriculaIds){
+            assertThrows(SQLException.class, () ->  matriculaDao.findById(id).get());
+        }
     }
 }

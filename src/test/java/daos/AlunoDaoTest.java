@@ -87,8 +87,31 @@ public class AlunoDaoTest {
 
     @Test
     public void findAllById() throws SQLException {
-        // TODO
-        Assert.assertTrue(false);
+        // Armazenar dois alunos na tabela
+        AlunoModel aluno1 = new AlunoModel("Jack", "2022-11-15", CursoEnum.SISTEMA);
+        AlunoModel aluno2 = new AlunoModel("Batata", "2022-11-16", CursoEnum.DIREITO);
+        Iterable<AlunoModel> alunoSalvo = alunoDao.saveAll(List.of(aluno1, aluno2));
+        alunoSalvo.forEach(it -> Assert.assertTrue(it.getId() != null));
+        // Criando lista de id
+        List<Integer> alunosIds = new ArrayList<>();
+        for (AlunoModel aluno: alunoSalvo ) {
+            alunosIds.add(aluno.getId());
+        }
+        // Banco
+        Iterable<AlunoModel> alunosBanco = alunoDao.findAllById(alunosIds);
+        // Testes
+
+        for (AlunoModel alunosalvado: alunoSalvo) {
+            for (AlunoModel alunobanco: alunosBanco) {
+                if(alunosalvado.getId() == alunobanco.getId()){
+                    Assert.assertEquals(alunosalvado.getId(),alunobanco.getId());
+                    Assert.assertEquals(alunosalvado.getNome(),alunobanco.getNome());
+                    Assert.assertEquals(alunosalvado.getDataNascimento(), alunobanco.getDataNascimento());
+                    Assert.assertEquals(alunosalvado.getCurso(),alunobanco.getCurso());
+                }
+            }
+        }
+
     }
 
     @Test
@@ -154,11 +177,13 @@ public class AlunoDaoTest {
         // Validando disciplinas
         alunoSalvo.forEach(it -> Assert.assertTrue(it.getId() != null));
         // Salvando os ids
-        List<Integer> disciplinaId = new ArrayList<>();
-        alunoSalvo.forEach( x -> disciplinaId.add(x.getId()));
+        List<Integer> alunoId = new ArrayList<>();
+        alunoSalvo.forEach( x -> alunoId.add(x.getId()));
         // Apagando registro
         alunoDao.deleteAll(alunoSalvo);
         // FIXME: Teste
-        assertThrows(SQLException.class, () -> alunoDao.findAllById(disciplinaId));
+        for(Integer id: alunoId){
+            assertThrows(SQLException.class, () ->  alunoDao.findById(id).get());
+        }
     }
 }

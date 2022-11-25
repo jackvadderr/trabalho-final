@@ -83,8 +83,30 @@ public class DisciplinaDaoTest {
 
     @Test
     public void findAllById() throws SQLException {
-        // TODO
-        Assert.assertTrue(false);
+        // Armazenar dois alunos na tabela
+        DisciplinaModel disciplina1 = new DisciplinaModel(null,"Lógica", CursoEnum.SISTEMA);
+        DisciplinaModel disciplina2 = new DisciplinaModel(null,"Lógica", CursoEnum.SISTEMA);
+        Iterable<DisciplinaModel> disciplinaSalvo = disciplinaDao.saveAll(List.of(disciplina1, disciplina2));
+        disciplinaSalvo.forEach(it -> Assert.assertTrue(it.getId() != null));
+        // Criando lista de id
+        List<Integer> alunosIds = new ArrayList<>();
+        for (DisciplinaModel disciplina: disciplinaSalvo ) {
+            alunosIds.add(disciplina.getId());
+        }
+        // Banco
+        Iterable<DisciplinaModel> alunosBanco = disciplinaDao.findAllById(alunosIds);
+        // Testes
+
+        for (DisciplinaModel disciplinado: disciplinaSalvo) {
+            for (DisciplinaModel disciplinaDoBanco: alunosBanco) {
+                if(disciplinado.getId() == disciplinaDoBanco.getId()){
+                    Assert.assertEquals(disciplinado.getId(),disciplinaDoBanco.getId());
+                    Assert.assertEquals(disciplinado.getDescricao(),disciplinaDoBanco.getDescricao());
+                    Assert.assertEquals(disciplinado.getCurso(),disciplinaDoBanco.getCurso());
+                }
+            }
+        }
+
     }
 
     @Test
@@ -159,6 +181,8 @@ public class DisciplinaDaoTest {
         disciplinaDao.deleteAll(disciplinaSalva);
 
         // Teste
-        assertThrows(SQLException.class, () -> disciplinaDao.findAllById(disciplinaId));
+        for(Integer id: disciplinaId){
+            assertThrows(SQLException.class, () ->  disciplinaDao.findById(id).get());
+        }
     }
 }

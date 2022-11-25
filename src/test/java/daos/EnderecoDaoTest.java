@@ -73,19 +73,43 @@ public class EnderecoDaoTest {
 
     @Test
     public void findById() throws SQLException {
-        EnderecoModel enderecoModel = new EnderecoModel(null,"Descrição", LogradouroEnum.Rua);
-        EnderecoModel enderecoModelSalvo = enderecoDao.save(enderecoModel);
+        EnderecoModel endereco1 = new EnderecoModel(null,"Descrição", LogradouroEnum.Rua);
+        EnderecoModel enderecoModelSalvo = enderecoDao.save(endereco1);
         Assert.assertTrue(enderecoModelSalvo.getId() != null);
         Integer id = enderecoModelSalvo.getId();
         EnderecoModel enderecoModelBanco = enderecoDao.findById(id).get();
-        Assert.assertTrue(enderecoModel != enderecoModelBanco);
+        Assert.assertTrue(endereco1 != enderecoModelBanco);
         Assert.assertTrue( enderecoModelBanco.getId() == id);
     }
 
     @Test
     public void findAllById() throws SQLException {
-        // TODO
-        Assert.assertTrue(false);
+        // Enderecos
+        EnderecoModel endereco1 = new EnderecoModel(null,"Descrição", LogradouroEnum.Rua);
+        EnderecoModel endereco2 = new EnderecoModel(null,"Descrição", LogradouroEnum.Avenida);
+        // Salvando os dados
+        Iterable<EnderecoModel> enderecoSalvo = enderecoDao.saveAll(List.of(endereco1, endereco2));
+        // Validando os dados
+        enderecoSalvo.forEach(it -> Assert.assertTrue(it.getId() != null));
+        // Criando lista de id
+        List<Integer> alunosIds = new ArrayList<>();
+        for (EnderecoModel endereco: enderecoSalvo ) {
+            alunosIds.add(endereco.getId());
+        }
+        // Banco
+        Iterable<EnderecoModel> enderecosBanco = enderecoDao.findAllById(alunosIds);
+        // Testes
+
+        for (EnderecoModel enderecado: enderecoSalvo) {
+            for (EnderecoModel enderecoDoBanco: enderecosBanco) {
+                if(enderecado.getId() == enderecoDoBanco.getId()){
+                    Assert.assertEquals(enderecado.getId(),enderecoDoBanco.getId());
+                    Assert.assertEquals(enderecado.getDescricao(),enderecoDoBanco.getDescricao());
+                    Assert.assertEquals(enderecado.getLogradouro(),enderecoDoBanco.getLogradouro());
+                }
+            }
+        }
+
     }
 
     @Test
@@ -152,6 +176,8 @@ public class EnderecoDaoTest {
         enderecoDao.deleteAll(enderecoSalvo);
 
         // Teste
-        assertThrows(SQLException.class, () -> enderecoDao.findAllById(enderecosId));
+        for(Integer id: enderecosId){
+            assertThrows(SQLException.class, () ->  enderecoDao.findById(id).get());
+        }
     }
 }
