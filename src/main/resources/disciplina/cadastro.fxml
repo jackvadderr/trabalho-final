@@ -6,8 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<FlowPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.sapiens.controllers.EnderecoController">
+<FlowPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.sapiens.controllers.DisciplinaController">
    <children>
       <VBox spacing="15.0">
          <children>
@@ -27,8 +26,8 @@
             </HBox>
             <HBox spacing="15.0">
                <children>
-                  <Label text="Logradouro" />
-                  <ChoiceBox fx:id="logradouro" prefWidth="150.0" >
+                  <Label text="Curso" />
+                  <ChoiceBox fx:id="curso" prefWidth="150.0">
 
                   </ChoiceBox>
                </children>

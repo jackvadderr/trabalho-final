@@ -4,12 +4,14 @@ import br.sapiens.configs.ConexaoSingleton;
 import br.sapiens.configs.CriaEntidades;
 import br.sapiens.daos.AlunoDao;
 import br.sapiens.models.*;
+import br.sapiens.models.DateParse;
+
 import junit.framework.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class AlunoDaoTest {
 
     @Test
     public void save() throws SQLException {
-        AlunoModel aluno = new AlunoModel(null,"Jack", "2022-11-12",CursoEnum.DIREITO);
+        AlunoModel aluno = new AlunoModel(null,"Jack", new Date(), CursoEnum.DIREITO);
         AlunoModel alunoSalvo = alunoDao.save(aluno);
         Assert.assertTrue(alunoSalvo.getId() != null);
     }
@@ -38,8 +40,8 @@ public class AlunoDaoTest {
     @Test
     public void saveAll() throws SQLException {
         // Alunos
-        AlunoModel aluno1 = new AlunoModel("Jack", "2022-11-09", CursoEnum.DIREITO);
-        AlunoModel aluno2 = new AlunoModel("Batata", "2022-11-10", CursoEnum.SISTEMA);
+        AlunoModel aluno1 = new AlunoModel("Jack", new Date(), CursoEnum.DIREITO);
+        AlunoModel aluno2 = new AlunoModel("Batata", new Date(), CursoEnum.SISTEMA);
         // Salvando os dados
         Iterable<AlunoModel> alunoSalvo = alunoDao.saveAll(List.of(aluno1, aluno2));
         alunoSalvo.forEach(it -> Assert.assertTrue(it.getId() != null));
@@ -48,14 +50,14 @@ public class AlunoDaoTest {
     @Test
     public void findAll() throws SQLException{
         // Aluno
-        AlunoModel aluno1 = new AlunoModel("Maria", "2025-11-20", CursoEnum.SISTEMA);
-        AlunoModel aluno2 = new AlunoModel( "Batata", "2025-11-29", CursoEnum.DIREITO);
+        AlunoModel aluno1 = new AlunoModel("Maria", new Date(), CursoEnum.SISTEMA);
+        AlunoModel aluno2 = new AlunoModel( "Batata", new Date(), CursoEnum.DIREITO);
         // Salvando os dados
         Iterable<AlunoModel> alunoSalvo = alunoDao.saveAll(List.of(aluno1, aluno2));
         // Banco
         Iterator<AlunoModel> alunoBanco = alunoSalvo.iterator();
         // Fazendo listagem de todos as matriculas salvas no banco
-        Iterator<AlunoModel> resultados = alunoDao.findAll();
+        Iterator<AlunoModel> resultados = (Iterator<AlunoModel>) alunoDao.findAll();
         while (resultados.hasNext()) {
             AlunoModel registro = resultados.next();
             System.out.print("\n" +
@@ -72,7 +74,7 @@ public class AlunoDaoTest {
     @Test
     public void findById() throws SQLException {
         // Aluno
-        AlunoModel aluno1 = new AlunoModel("Jack", "2022-11-15", CursoEnum.SISTEMA);
+        AlunoModel aluno1 = new AlunoModel("Jack", new Date(), CursoEnum.SISTEMA);
         // Salvando os dados
         AlunoModel alunoSalvo = alunoDao.save(aluno1);
         // Validando os dados salvos
@@ -88,8 +90,8 @@ public class AlunoDaoTest {
     @Test
     public void findAllById() throws SQLException {
         // Armazenar dois alunos na tabela
-        AlunoModel aluno1 = new AlunoModel("Jack", "2022-11-15", CursoEnum.SISTEMA);
-        AlunoModel aluno2 = new AlunoModel("Batata", "2022-11-16", CursoEnum.DIREITO);
+        AlunoModel aluno1 = new AlunoModel("Jack", new Date(), CursoEnum.SISTEMA);
+        AlunoModel aluno2 = new AlunoModel("Batata", new Date(), CursoEnum.DIREITO);
         Iterable<AlunoModel> alunoSalvo = alunoDao.saveAll(List.of(aluno1, aluno2));
         alunoSalvo.forEach(it -> Assert.assertTrue(it.getId() != null));
         // Criando lista de id
@@ -106,7 +108,7 @@ public class AlunoDaoTest {
                 if(alunosalvado.getId() == alunobanco.getId()){
                     Assert.assertEquals(alunosalvado.getId(),alunobanco.getId());
                     Assert.assertEquals(alunosalvado.getNome(),alunobanco.getNome());
-                    Assert.assertEquals(alunosalvado.getDataNascimento(), alunobanco.getDataNascimento());
+                    Assert.assertEquals(new DateParse().parse(alunosalvado.getDataNascimento()).toString(), alunobanco.getDataNascimento().toString());
                     Assert.assertEquals(alunosalvado.getCurso(),alunobanco.getCurso());
                 }
             }
@@ -117,7 +119,7 @@ public class AlunoDaoTest {
     @Test
     public void update() throws SQLException {
         // Aluno
-        AlunoModel aluno1 = new AlunoModel("Jack", "2022-11-20", CursoEnum.DIREITO);
+        AlunoModel aluno1 = new AlunoModel("Jack", new Date(), CursoEnum.DIREITO);
         // Salvando os dados
         AlunoModel alunoSalvo = alunoDao.save(aluno1);
         // Salvando o id
@@ -136,7 +138,7 @@ public class AlunoDaoTest {
     @Test
     public void delete() throws SQLException {
         // Aluno
-        AlunoModel aluno = new AlunoModel("Jack", "2022-11-12",CursoEnum.DIREITO);
+        AlunoModel aluno = new AlunoModel("Jack", new Date(), CursoEnum.DIREITO);
         // Salvando os dados
         AlunoModel alunoSalvo = alunoDao.save(aluno);
         // Validando os dados
@@ -152,7 +154,7 @@ public class AlunoDaoTest {
     @Test
     public void deleteById() throws SQLException {
         // Aluno
-        AlunoModel aluno = new AlunoModel("Jack", "2022-11-12",CursoEnum.DIREITO);
+        AlunoModel aluno = new AlunoModel("Jack", new Date(), CursoEnum.DIREITO);
         // Salvando os dados
         AlunoModel alunoSalvo = alunoDao.save(aluno);
         // Validando os dados
@@ -170,8 +172,8 @@ public class AlunoDaoTest {
     @Test
     public void deleteAll() throws SQLException {
         // Alunos
-        AlunoModel aluno1 = new AlunoModel("Jack", "2022-11-12",CursoEnum.DIREITO);
-        AlunoModel aluno2 = new AlunoModel("Batata", "2022-11-13",CursoEnum.SISTEMA);
+        AlunoModel aluno1 = new AlunoModel("Jack", new Date(), CursoEnum.DIREITO);
+        AlunoModel aluno2 = new AlunoModel("Batata", new Date(),CursoEnum.SISTEMA);
         // Salvando os dados
         Iterable<AlunoModel> alunoSalvo = alunoDao.saveAll(List.of(aluno1, aluno2));
         // Validando disciplinas

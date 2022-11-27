@@ -37,17 +37,8 @@ public class DisciplinaDao implements CrudRepository<DisciplinaModel,Integer>{
         return lista;
     }
 
-    public Iterator<DisciplinaModel> findAll() throws SQLException{
-        String sql = "select * from disciplina";
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        List<DisciplinaModel> resultado = new ArrayList();
-        try (ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                resultado.add(new DisciplinaModel(rs.getInt(1),rs.getString(2), CursoEnum.valueOf(rs.getString(3))));
-            }
-        }
-        Iterator<DisciplinaModel> interetorResult = resultado.iterator();
-        return interetorResult;
+    public List<DisciplinaModel> findAll() throws SQLException {
+        return findAllById(null);
     }
 
     @Override
@@ -59,21 +50,28 @@ public class DisciplinaDao implements CrudRepository<DisciplinaModel,Integer>{
     }
 
     @Override
-    public Iterable<DisciplinaModel> findAllById(Iterable<Integer> ids) throws SQLException {
-        List<Integer> lista = new ArrayList();
-        Iterator<Integer> interetor = ids.iterator();
-        while(interetor.hasNext()){
-            lista.add(interetor.next());
+    public List<DisciplinaModel> findAllById(Iterable<Integer> ids) throws SQLException {
+        String sql = "select * from disciplina ";
+        if(ids != null) {
+            List<Integer> lista = new ArrayList();
+            Iterator<Integer> interetor = ids.iterator();
+            while(interetor.hasNext()){
+                lista.add(interetor.next());
+            }
+            String sqlIN = lista.stream()
+                    .map(x -> String.valueOf(x))
+                    .collect(Collectors.joining(",", "(", ")"));
+            sql = sql+" where id in(?)".replace("(?)", sqlIN);
         }
-        String sqlIN = lista.stream()
-                .map(x -> String.valueOf(x))
-                .collect(Collectors.joining(",", "(", ")"));
-        String sql = "select * from disciplina where id in(?)".replace("(?)", sqlIN);
         PreparedStatement stmt = conn.prepareStatement(sql);
         List<DisciplinaModel> resultado = new ArrayList();
         try (ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                resultado.add(new DisciplinaModel(rs.getInt(1),rs.getString(2), CursoEnum.valueOf(rs.getString(3))));
+                int id = rs.getInt(1);
+                String descricao = rs.getString(2);
+                CursoEnum enumCurso = CursoEnum.valueOf(rs.getString(3));
+                DisciplinaModel disciplina = new DisciplinaModel(id, descricao, enumCurso);
+                resultado.add(disciplina);
             }
         }
         return resultado;

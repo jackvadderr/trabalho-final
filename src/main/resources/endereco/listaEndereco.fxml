@@ -8,5 +8,8 @@
    <children>
       <TableView fx:id="table">
       </TableView>
+      <Pane fx:id="painelVinculo">
+
+      </Pane>
    </children>
 </FlowPane>

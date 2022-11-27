@@ -14,8 +14,8 @@ import java.util.Date;
 public class MainController {
 
     public BorderPane pane;
+    // Endereço
     public void cadastrarEndereco() throws IOException {
-        System.out.println("funcionou");
         FXMLLoader fxmlLoader =
                 new FXMLLoader(Main.class.getResource("/endereco/cadastro.fxml"));
         pane.setCenter(fxmlLoader.load());
@@ -26,22 +26,20 @@ public class MainController {
                 new FXMLLoader(Main.class.getResource("/endereco/listaEndereco.fxml"));
         pane.setCenter(fxmlLoader.load());
     }
-
+    // Aluno
     public void cadastrarAluno() throws IOException {
-        System.out.println("funcionou");
         FXMLLoader fxmlLoader =
                 new FXMLLoader(Main.class.getResource("/aluno/cadastro.fxml"));
         pane.setCenter(fxmlLoader.load());
     }
 
-    public void listaAluno() throws IOException {
+    public void listaALuno() throws IOException {
         FXMLLoader fxmlLoader =
                 new FXMLLoader(Main.class.getResource("/aluno/listaAluno.fxml"));
         pane.setCenter(fxmlLoader.load());
     }
-
+    // Disciplina
     public void cadastrarDisciplina() throws IOException {
-        System.out.println("funcionou");
         FXMLLoader fxmlLoader =
                 new FXMLLoader(Main.class.getResource("/disciplina/cadastro.fxml"));
         pane.setCenter(fxmlLoader.load());

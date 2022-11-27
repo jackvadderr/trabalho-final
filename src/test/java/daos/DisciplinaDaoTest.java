@@ -33,7 +33,7 @@ public class DisciplinaDaoTest {
 
     @Test
     public void save() throws SQLException {
-        DisciplinaModel disciplina = new DisciplinaModel(null,"Lógica", CursoEnum.SISTEMA);
+        DisciplinaModel disciplina = new DisciplinaModel("Lógica", CursoEnum.SISTEMA);
         DisciplinaModel disciplinaSalvo = disciplinaDao.save(disciplina);
         Assert.assertTrue(disciplinaSalvo.getId() != null);
     }
@@ -57,14 +57,15 @@ public class DisciplinaDaoTest {
         // Banco
         Iterator<DisciplinaModel> disciplinaBanco = disciplinaSalvo.iterator();
         // Fazendo listagem de todos as matriculas salvas no banco
-        Iterator<DisciplinaModel> resultados = disciplinaDao.findAll();
-        while (resultados.hasNext()) {
-            DisciplinaModel registro = resultados.next();
+        List<DisciplinaModel> resultados = disciplinaDao.findAll();
+
+        for (DisciplinaModel disc: resultados) {
             System.out.print("\n" +
-                    registro.getId() + " | " +
-                    registro.getDescricao() + " | " +
-                    registro.getCurso());
+                    disc.getId() + " | " +
+                    disc.getDescricao() + " | " +
+                    disc.getCurso());
         }
+
         // TODO: Testes
         // O teste é o seguinte: comparar os itens
         // usando asserts com lambda
@@ -151,15 +152,6 @@ public class DisciplinaDaoTest {
         Integer alunoId = disciplinaSalvo.getId();
         // Apagando o registro
         disciplinaDao.deleteById(alunoId);
-
-        Iterator<DisciplinaModel> resultados = disciplinaDao.findAll();
-        while (resultados.hasNext()) {
-            DisciplinaModel registro = resultados.next();
-            System.out.print("\n" +
-                    registro.getId() + " | " +
-                    registro.getDescricao() + " | " +
-                    registro.getCurso());
-        }
 
         // Testes
         assertThrows(SQLException.class, () -> disciplinaDao.findById(alunoId).orElse(null));

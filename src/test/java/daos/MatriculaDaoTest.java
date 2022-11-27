@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class MatriculaDaoTest {
     @Test
     public void save() throws SQLException {
         // Aluno
-        AlunoModel aluno1 = new AlunoModel("Jack", "2022-08-29", CursoEnum.SISTEMA);
+        AlunoModel aluno1 = new AlunoModel("Jack", new Date(), CursoEnum.SISTEMA);
         // Disciplina
         DisciplinaModel disciplina1 = new DisciplinaModel("Descrição 01", CursoEnum.SISTEMA);
         // Matricula
@@ -52,8 +53,8 @@ public class MatriculaDaoTest {
     @Test
     public void saveAll() throws SQLException {
         // Aluno
-        AlunoModel aluno1 = new AlunoModel(null, "Maria", "2025-11-20", CursoEnum.SISTEMA);
-        AlunoModel aluno2 = new AlunoModel(null, "Batata", "2025-11-29", CursoEnum.DIREITO);
+        AlunoModel aluno1 = new AlunoModel(null, "Maria", new Date(), CursoEnum.SISTEMA);
+        AlunoModel aluno2 = new AlunoModel(null, "Batata", new Date(), CursoEnum.DIREITO);
         // Disciplina
         DisciplinaModel disciplina1 = new DisciplinaModel(null, "Lógica", CursoEnum.SISTEMA);
         DisciplinaModel disciplina2 = new DisciplinaModel(null, "Direito trabalhista", CursoEnum.DIREITO);
@@ -71,7 +72,7 @@ public class MatriculaDaoTest {
     @Test
     public void update() throws SQLException {
         // Aluno
-        AlunoModel aluno = new AlunoModel(null, "Maria", "2025-11-29", CursoEnum.SISTEMA);
+        AlunoModel aluno = new AlunoModel(null, "Maria", new Date(), CursoEnum.SISTEMA);
         // Disciplina
         DisciplinaModel disciplina = new DisciplinaModel(null, "Lógica", CursoEnum.SISTEMA);
         // Matricula
@@ -87,8 +88,8 @@ public class MatriculaDaoTest {
     @Test
     public void findAll() throws SQLException{
         // Aluno
-        AlunoModel aluno1 = new AlunoModel(null, "Maria", "2025-11-20", CursoEnum.SISTEMA);
-        AlunoModel aluno2 = new AlunoModel(null, "Batata", "2025-11-29", CursoEnum.DIREITO);
+        AlunoModel aluno1 = new AlunoModel(null, "Maria", new Date(), CursoEnum.SISTEMA);
+        AlunoModel aluno2 = new AlunoModel(null, "Batata", new Date(), CursoEnum.DIREITO);
         // Disciplina
         DisciplinaModel disciplina1 = new DisciplinaModel(null, "Lógica", CursoEnum.SISTEMA);
         DisciplinaModel disciplina2 = new DisciplinaModel(null, "Direito trabalhista", CursoEnum.DIREITO);
@@ -121,7 +122,7 @@ public class MatriculaDaoTest {
     @Test
     public void findById() throws SQLException {
         // Aluno
-        AlunoModel aluno = new AlunoModel(null, "Maria", "2025-11-29", CursoEnum.SISTEMA);
+        AlunoModel aluno = new AlunoModel(null, "Maria", new Date(), CursoEnum.SISTEMA);
         // Disciplina
         DisciplinaModel disciplina = new DisciplinaModel(null, "Lógica", CursoEnum.SISTEMA);
         // Matricula
@@ -149,7 +150,7 @@ public class MatriculaDaoTest {
     @Test
     public void delete() throws SQLException {
         // Aluno
-        AlunoModel aluno = new AlunoModel(null, "Maria", "2025-11-29", CursoEnum.SISTEMA);
+        AlunoModel aluno = new AlunoModel(null, "Maria", new Date(), CursoEnum.SISTEMA);
         // Disciplina
         DisciplinaModel disciplina = new DisciplinaModel(null, "Lógica", CursoEnum.SISTEMA);
         // Matricula
@@ -175,7 +176,7 @@ public class MatriculaDaoTest {
     @Test
     public void deleteById() throws SQLException {
         // Aluno
-        AlunoModel aluno = new AlunoModel( "Maria", "2025-11-29", CursoEnum.SISTEMA);
+        AlunoModel aluno = new AlunoModel( "Maria", new Date(), CursoEnum.SISTEMA);
         // Disciplina
         DisciplinaModel disciplina = new DisciplinaModel("Lógica", CursoEnum.SISTEMA);
         // Matricula
@@ -207,7 +208,7 @@ public class MatriculaDaoTest {
 
         Iterable<DisciplinaModel> disciplinaSalva =disciplinaDao.saveAll(List.of(disciplina));
         //ALUNO
-        AlunoModel aluno = new AlunoModel(null,"Maria", "2022-05-12" , CursoEnum.SISTEMA);
+        AlunoModel aluno = new AlunoModel(null,"Maria", new Date(), CursoEnum.SISTEMA);
         Iterable<AlunoModel> alunoSalvo = alunoDao.saveAll(List.of(aluno));
         //MATRICULA
         MatriculaModel matricula = new MatriculaModel(disciplina, aluno, PeriodoEnum.PRIMEIRO);

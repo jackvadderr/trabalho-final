@@ -1,5 +1,6 @@
 package br.sapiens;
 
+
 import br.sapiens.configs.ConexaoSingleton;
 import br.sapiens.configs.CriaEntidades;
 import javafx.application.Application;
@@ -14,17 +15,17 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/layout/main.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 500, 500);
+        FXMLLoader fxmlLoader =
+                new FXMLLoader(Main.class.getResource("/layout/main.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setMaximized(true);
         stage.setTitle("Index");
         stage.setScene(scene);
         stage.show();
     }
 
     public static void main(String[] args) throws SQLException {
-        //minha conexao
-        ConexaoSingleton conexao = new ConexaoSingleton();
-        CriaEntidades teste = new CriaEntidades(conexao.getConnection());
+        new CriaEntidades(new ConexaoSingleton().getConnection());
         launch();
     }
 

@@ -1,15 +1,10 @@
 package br.sapiens.models;
 
 public class MatriculaModel {
+
     private DisciplinaModel disciplina;
-    //private Integer idDisciplina;
-
     private AlunoModel aluno;
-    //private Integer idAluno;
-
     private PeriodoEnum periodo;
-    //private Integer idPeriodo;
-    //private String id;
 
     public MatriculaModel(DisciplinaModel disciplina, AlunoModel aluno, PeriodoEnum periodo) {
         this.disciplina = disciplina;

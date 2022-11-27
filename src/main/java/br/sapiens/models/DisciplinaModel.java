@@ -1,9 +1,12 @@
 package br.sapiens.models;
 
 public class DisciplinaModel {
+
     private Integer id;
     private String descricao;
+    private int creditos;
     private CursoEnum curso;
+
 
     public DisciplinaModel(Integer id, String descricao, CursoEnum curso) {
         this.id = id;

@@ -2,6 +2,7 @@ package br.sapiens.daos;
 
 import br.sapiens.configs.ConexaoSingleton;
 import br.sapiens.models.*;
+import br.sapiens.models.DateParse;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,6 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+
 
 public class AlunoDao implements CrudRepository<AlunoModel, Integer>{
 
@@ -36,17 +39,8 @@ public class AlunoDao implements CrudRepository<AlunoModel, Integer>{
         return lista;
     }
 
-    public Iterator<AlunoModel> findAll() throws SQLException{
-        String sql = "select * from aluno";
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        List<AlunoModel> resultado = new ArrayList();
-        try (ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                resultado.add(new AlunoModel(rs.getInt(1),rs.getString(2), rs.getString(3), CursoEnum.valueOf(rs.getString(4))));
-            }
-        }
-        Iterator<AlunoModel> interetorResult = resultado.iterator();
-        return interetorResult;
+    public List<AlunoModel> findAll() throws SQLException {
+        return findAllById(null);
     }
 
     @Override
@@ -58,21 +52,29 @@ public class AlunoDao implements CrudRepository<AlunoModel, Integer>{
     }
 
     @Override
-    public Iterable<AlunoModel> findAllById(Iterable<Integer> ids) throws SQLException {
-        List<Integer> lista = new ArrayList();
-        Iterator<Integer> interetor = ids.iterator();
-        while(interetor.hasNext()){
-            lista.add(interetor.next());
+    public List<AlunoModel> findAllById(Iterable<Integer> ids) throws SQLException {
+        String sql = "select * from aluno ";
+        if(ids != null) {
+            List<Integer> lista = new ArrayList();
+            Iterator<Integer> interetor = ids.iterator();
+            while(interetor.hasNext()){
+                lista.add(interetor.next());
+            }
+            String sqlIN = lista.stream()
+                    .map(x -> String.valueOf(x))
+                    .collect(Collectors.joining(",", "(", ")"));
+            sql = sql+" where id in(?)".replace("(?)", sqlIN);
         }
-        String sqlIN = lista.stream()
-                .map(x -> String.valueOf(x))
-                .collect(Collectors.joining(",", "(", ")"));
-        String sql = "select * from aluno where id in(?)".replace("(?)", sqlIN);
         PreparedStatement stmt = conn.prepareStatement(sql);
         List<AlunoModel> resultado = new ArrayList();
         try (ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                resultado.add(new AlunoModel(rs.getInt(1),rs.getString(2), rs.getString(3), CursoEnum.valueOf(rs.getString(4))));
+                int id = rs.getInt(1);
+                String nome = rs.getString(2);
+                java.sql.Date date = rs.getDate(3);
+                CursoEnum enumCurso = CursoEnum.valueOf(rs.getString(4));
+                AlunoModel aluno = new AlunoModel(id, nome, date, enumCurso);
+                resultado.add(aluno);
             }
         }
         return resultado;
@@ -82,7 +84,7 @@ public class AlunoDao implements CrudRepository<AlunoModel, Integer>{
         String sql = "UPDATE aluno SET nome = ?, dataNascimento = ?, curso = ?  WHERE id = ?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1,entity.getNome());
-        pstmt.setString(2,entity.getDataNascimento());
+        pstmt.setString(2, new DateParse().parse(entity.getDataNascimento()).toString());
         pstmt.setString(3,entity.getCurso().toString());
         pstmt.setString(4,entity.getId().toString());
         pstmt.executeUpdate();
@@ -94,7 +96,7 @@ public class AlunoDao implements CrudRepository<AlunoModel, Integer>{
         PreparedStatement pstmt = conn.prepareStatement(sql,
                 Statement.RETURN_GENERATED_KEYS);
         pstmt.setString(1,entity.getNome());
-        pstmt.setString(2,entity.getDataNascimento());
+        pstmt.setString(2, new DateParse().parse(entity.getDataNascimento()).toString());
         pstmt.setString(3,entity.getCurso().toString());
         int affectedRows = pstmt.executeUpdate();
         if (affectedRows == 0)

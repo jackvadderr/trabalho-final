@@ -1,21 +1,25 @@
 package br.sapiens.models;
 
 import java.util.Date;
+import java.util.List;
 
 public class AlunoModel {
+
     private Integer id;
     private String nome;
-    private String dataNascimento;
+    private Date dataNascimento;
+    private List<MatriculaModel> matriculado;
     private CursoEnum curso;
 
-    public AlunoModel(Integer id, String nome, String dataNascimento,CursoEnum curso) {
+
+    public AlunoModel(Integer id, String nome, Date dataNascimento,CursoEnum curso) {
         this.id = id;
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.curso = curso;
     }
 
-    public AlunoModel(String nome, String dataNascimento,CursoEnum curso) {
+    public AlunoModel(String nome, Date dataNascimento,CursoEnum curso) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.curso = curso;
@@ -37,11 +41,11 @@ public class AlunoModel {
         this.nome = nome;
     }
 
-    public String getDataNascimento() {
+    public Date getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
@@ -52,4 +56,5 @@ public class AlunoModel {
     public void setCurso(CursoEnum curso) {
         this.curso = curso;
     }
+
 }

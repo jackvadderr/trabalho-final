@@ -6,9 +6,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<FlowPane prefHeight="278.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.sapiens.controllers.EnderecoController">
+<FlowPane prefHeight="184.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.sapiens.controllers.AlunoController">
    <children>
-      <VBox prefHeight="190.0" prefWidth="287.0" spacing="15.0">
+      <VBox prefHeight="190.0" prefWidth="261.0" spacing="15.0">
          <children>
             <HBox fillHeight="false" spacing="15.0">
                <children>
@@ -18,16 +18,7 @@
             <HBox fillHeight="false" spacing="15.0">
                <children>
                   <Label text="Nome" />
-                  <TextField fx:id="descricao1" />
-               </children>
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-            </HBox>
-            <HBox fillHeight="false" spacing="15.0">
-               <children>
-                  <Label text="Dasta de nascimento" />
-                  <TextField fx:id="descricao" />
+                  <TextField fx:id="nome" />
                </children>
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
@@ -36,9 +27,20 @@
             <HBox spacing="15.0">
                <children>
                   <Label text="Curso" />
-                  <ChoiceBox fx:id="logradouro" prefWidth="150.0">
+                  <ChoiceBox fx:id="curso" prefWidth="150.0">
 
                   </ChoiceBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </HBox>
+            <HBox spacing="15.0">
+               <children>
+                  <Label text="Nascimento" />
+                  <DatePicker fx:id="dataJf">
+
+                  </DatePicker>
                </children>
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
