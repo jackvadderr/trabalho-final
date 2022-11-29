@@ -28,5 +28,4 @@ public class Main extends Application {
         new CriaEntidades(new ConexaoSingleton().getConnection());
         launch();
     }
-
 }

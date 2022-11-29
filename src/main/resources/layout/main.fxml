@@ -15,12 +15,8 @@
                                 <MenuItem onAction="#cadastrarEndereco" mnemonicParsing="false" text="Cadastrar Endereço" />
                                 <MenuItem onAction="#listaEndereco" mnemonicParsing="false" text="Listar Endereço" />
 
-                                <MenuItem onAction="#cadastrarAluno" mnemonicParsing="false" text="Cadastrar Aluno" />
-                                <MenuItem onAction="#listaALuno" mnemonicParsing="false" text="Listar Aluno" />
-
+                                <MenuItem onAction="#cadastrarAluno" mnemonicParsing="false" text="Aluno" />
                                 <MenuItem onAction="#cadastrarDisciplina" mnemonicParsing="false" text="Cadastrar Disciplina" />
-                                <MenuItem onAction="#listaDisciplina" mnemonicParsing="false" text="Listar Disciplina" />
-
                             </items>
                         </Menu>
                     </menus>

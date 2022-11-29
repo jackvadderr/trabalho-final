@@ -2,7 +2,7 @@ package br.sapiens.controllers;
 
 import br.sapiens.Main;
 import br.sapiens.daos.DisciplinaDao;
-import br.sapiens.daos.EnderecoDao;
+
 import br.sapiens.models.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,9 +34,6 @@ public class DisciplinaController {
     @FXML
     Pane painelVinculo;
 
-//    @FXML
-//    DatePicker dataJf;
-
     public DisciplinaController() throws SQLException {
     }
 
@@ -47,6 +44,15 @@ public class DisciplinaController {
             list.addAll(CursoEnum.values());
             curso.setItems(list);
         }
+    }
+
+    @FXML
+    public void tab() throws SQLException {
+        mostrarTabela();
+    }
+
+
+    public void mostrarTabela() throws SQLException {
         if(table != null){
             TableColumn<DisciplinaModel, String> idC = new TableColumn("Id");
             idC.setCellValueFactory(new PropertyValueFactory("id"));
@@ -54,50 +60,10 @@ public class DisciplinaController {
             descricaoC.setCellValueFactory(new PropertyValueFactory("descricao"));
             TableColumn<DisciplinaModel, String> cursoC = new TableColumn("Curso");
             cursoC.setCellValueFactory(new PropertyValueFactory("curso"));
-
-//            TableColumn<DisciplinaModel, String> data = new TableColumn("Data");
-//            data.setCellValueFactory(new PropertyValueFactory("dataFormato"));
-
             TableColumn action = new TableColumn("Ação");
-            action.setCellFactory(criaAcao());
             table.getColumns().addAll(List.of(idC,descricaoC, cursoC, action));
             table.getItems().addAll(dao.findAll());
         }
-
-    }
-
-    private Callback<TableColumn<EnderecoModel, String>, TableCell<EnderecoModel, String>> criaAcao() {
-       return
-                new Callback<TableColumn<EnderecoModel, String>, TableCell<EnderecoModel, String>>() {
-                    @Override
-                    public TableCell call(final TableColumn<EnderecoModel, String> param) {
-                        final TableCell<EnderecoModel, String> cell = new TableCell<EnderecoModel, String>() {
-                            @Override
-                            public void updateItem(String item, boolean empty) {
-                                super.updateItem(item, empty);
-                                setGraphic(null);
-                                setText(null);
-                                if (!empty) {
-                                    Button btn = new Button("Vincular");
-                                    btn.setOnAction(event -> {
-                                        FXMLLoader fxmlLoader =
-                                                new FXMLLoader(Main.class.getResource("/endereco/vinculo.fxml"));
-                                        try {
-                                            painelVinculo.getChildren().add(fxmlLoader.load());
-                                            VinculaEnderecoController controller = fxmlLoader.getController();
-                                            EnderecoModel endereco = this.getTableRow().getItem();
-                                            controller.recebeEndereco(endereco);
-                                        } catch (IOException e) {
-                                            throw new RuntimeException(e);
-                                        }
-                                    });
-                                    setGraphic(btn);
-                                }
-                            }
-                        };
-                        return cell;
-                    }
-                };
     }
 
     public void salvar() throws SQLException {

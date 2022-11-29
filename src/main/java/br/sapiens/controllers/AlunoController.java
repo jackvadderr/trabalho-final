@@ -2,7 +2,7 @@ package br.sapiens.controllers;
 
 import br.sapiens.Main;
 import br.sapiens.daos.AlunoDao;
-import br.sapiens.daos.EnderecoDao;
+
 import br.sapiens.models.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,13 +16,16 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class AlunoController {
 
+
     public Label id;
     AlunoDao dao = new AlunoDao();
+    public List<AlunoModel> alu =  new ArrayList<>();
     @FXML
     TextField nome;
     @FXML
@@ -47,7 +50,17 @@ public class AlunoController {
             list.addAll(CursoEnum.values());
             curso.setItems(list);
         }
+    }
+
+    @FXML
+    public void botaoMostrarTabela() throws SQLException {
+        mostrarTabela();
+    }
+
+    public void mostrarTabela() throws SQLException {
+        alu.removeAll(table.getItems());
         if(table != null){
+            alu =  dao.findAll();
             TableColumn<AlunoModel, String> idC = new TableColumn("Id");
             idC.setCellValueFactory(new PropertyValueFactory("id"));
             TableColumn<AlunoModel, String> nomeC = new TableColumn("Nome");
@@ -61,17 +74,15 @@ public class AlunoController {
             TableColumn action = new TableColumn("Ação");
             action.setCellFactory(criaAcao());
             table.getColumns().addAll(List.of(idC,nomeC, cursoC,data,action));
-            table.getItems().addAll(dao.findAll());
+            table.getItems().addAll(alu);
         }
-
     }
-
-    private Callback<TableColumn<EnderecoModel, String>, TableCell<EnderecoModel, String>> criaAcao() {
+    private Callback<TableColumn<AlunoModel, String>, TableCell<AlunoModel, String>> criaAcao() {
        return
-                new Callback<TableColumn<EnderecoModel, String>, TableCell<EnderecoModel, String>>() {
+                new Callback<TableColumn<AlunoModel, String>, TableCell<AlunoModel, String>>() {
                     @Override
-                    public TableCell call(final TableColumn<EnderecoModel, String> param) {
-                        final TableCell<EnderecoModel, String> cell = new TableCell<EnderecoModel, String>() {
+                    public TableCell call(final TableColumn<AlunoModel, String> param) {
+                        final TableCell<AlunoModel, String> cell = new TableCell<AlunoModel, String>() {
                             @Override
                             public void updateItem(String item, boolean empty) {
                                 super.updateItem(item, empty);
@@ -84,10 +95,11 @@ public class AlunoController {
                                                 new FXMLLoader(Main.class.getResource("/aluno/vinculo.fxml"));
                                         try {
                                             painelVinculo.getChildren().add(fxmlLoader.load());
-                                            VinculaEnderecoController controller = fxmlLoader.getController();
-                                            EnderecoModel endereco = this.getTableRow().getItem();
-                                            controller.recebeEndereco(endereco);
-                                        } catch (IOException e) {
+                                            VinculaAlunoController controller = fxmlLoader.getController();
+
+                                            AlunoModel aluno = this.getTableRow().getItem();
+                                            controller.recebeAluno(aluno);
+                                        } catch (IOException | SQLException e) {
                                             throw new RuntimeException(e);
                                         }
                                     });

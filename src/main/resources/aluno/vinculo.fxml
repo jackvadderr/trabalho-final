@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<FlowPane fx:controller="br.sapiens.controllers.VinculaEnderecoController" columnHalignment="CENTER" minWidth="-Infinity" prefWrapLength="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<FlowPane columnHalignment="CENTER" minWidth="-Infinity" prefWrapLength="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.sapiens.controllers.VinculaAlunoController">
    <children>
       <VBox alignment="CENTER">
          <children>
@@ -31,7 +31,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label text="Descrição:">
+                  <Label text="Nome:">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -39,7 +39,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="descricaoLabel" text="?">
+                  <Label fx:id="nomeLabel" text="?">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -50,6 +50,47 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
+
+                  <Label text="Curso:">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="cursoLabel" text="?">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+
+                  <Label text="Data:">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="dataLabel" text="?">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+
                </children>
                <padding>
                   <Insets left="10.0" />
@@ -74,17 +115,24 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </ChoiceBox>
+            <ChoiceBox fx:id="vinculo2" prefWidth="150.0">
+               <opaqueInsets>
+                  <Insets bottom="5.0" />
+               </opaqueInsets>
+            </ChoiceBox>
             <Button onAction="#salvar">Salvar</Button>
             <Separator prefWidth="200.0">
                <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
             </Separator>
-            <TableView prefHeight="200.0" prefWidth="200.0">
-              <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
-              </columns>
+            <TableView fx:id="table" editable="true" prefHeight="200.0" prefWidth="200.0">
+               <columns>
+                     <TableColumn fx:id="selectCol"
+                                  text=""
+                                  minWidth="40"
+                                  maxWidth="40"/>
+               </columns>
             </TableView>
          </children>
       </VBox>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<FlowPane prefHeight="520.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.sapiens.controllers.AlunoController">
+   <children>
+      <VBox prefHeight="190.0" prefWidth="261.0" spacing="15.0">
+         <children>
+            <HBox fillHeight="false" spacing="15.0">
+               <children>
+                  <Label fx:id="id" />
+               </children>
+            </HBox>
+            <HBox fillHeight="false" spacing="15.0">
+               <children>
+                  <Label text="Nome" />
+                  <TextField fx:id="nome" />
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </HBox>
+            <HBox spacing="15.0">
+               <children>
+                  <Label text="Curso" />
+                  <ChoiceBox fx:id="curso" prefWidth="150.0">
+
+                  </ChoiceBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </HBox>
+            <HBox spacing="15.0">
+               <children>
+                  <Label text="Nascimento" />
+                  <DatePicker fx:id="dataJf">
+
+                  </DatePicker>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </HBox>
+            <Button onAction="#salvar">Salvar</Button>
+            <Button onAction="#botaoMostrarTabela">Tabela</Button>
+         </children>
+      </VBox>
+   </children>
+   <children>
+      <TableView fx:id="table">
+      </TableView>
+      <Pane fx:id="painelVinculo">
+
+      </Pane>
+   </children>
+</FlowPane>
+
+

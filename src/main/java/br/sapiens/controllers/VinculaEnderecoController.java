@@ -6,6 +6,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -24,6 +27,9 @@ public class VinculaEnderecoController {
     @FXML
     ChoiceBox vinculo;
 
+    @FXML
+    TableView table;
+
     public void recebeEndereco(EnderecoModel endereco){
         this.endereco = endereco;
         idLabel.setText(endereco.getId().toString());
@@ -36,6 +42,7 @@ public class VinculaEnderecoController {
         ObservableList<String> list = FXCollections.observableArrayList();
         list.addAll(List.of("opcao1","opcao2"));
         vinculo.setItems(list);
+
     }
 
     public void salvar(){
@@ -47,7 +54,9 @@ public class VinculaEnderecoController {
 
 
     public void carregaMatriculas(){
+        if(table != null){
 
+        }
     }
 
 }

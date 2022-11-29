@@ -80,7 +80,7 @@
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
             </Separator>
-            <TableView prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0">
               <columns>
                 <TableColumn prefWidth="75.0" text="C1" />
                 <TableColumn prefWidth="75.0" text="C2" />

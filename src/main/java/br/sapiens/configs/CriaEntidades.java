@@ -52,7 +52,7 @@ public class CriaEntidades {
         System.out.println("Tabela aluno criada com sucesso. ");
         statement.execute(endereco);
         System.out.println("Tabela endereco criada com sucesso. ");
-        //System.out.println("Tabela matricula criada com sucesso. ");
+        System.out.print("Tabelas carregadas com sucesso!");
         statement.close();
     }
 
